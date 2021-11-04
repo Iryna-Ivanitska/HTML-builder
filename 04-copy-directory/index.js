@@ -13,7 +13,7 @@ function clearFolder(p) {
   fs.readdir(p, (err, files) => {
     // if (err) throw err;
     for (const file of files) {
-      fs.unlink(path.join(p, file), () => {});
+      fs.unlink(path.join(p, file), errorThrow);
     }
   });
 }
