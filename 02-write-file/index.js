@@ -4,7 +4,7 @@ const path = require("path");
 const readline = require("readline");
 
 console.log("Enter your TODO list");
-const stream = fs.createWriteStream(path.join(__dirname, "text.txt"));
+// const stream = fs.createWriteStream(path.join(__dirname, "text.txt"));
 
 const rl = readline.createInterface({ input, output });
 
