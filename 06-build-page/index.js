@@ -101,7 +101,6 @@ async function copyDir(oldDir, newDir) {
 // Create index.html
 
 let content;
-let comp = {};
 
 function createNewHtml() {
   readFile(path.join(__dirname, "template.html"))
@@ -125,6 +124,7 @@ function readComponents(content) {
           let name = path.parse(path.join(compDir, file)).name;
           // comp[`{{ ${name} }}`] = fileBuffer.toString();
           newContent = newContent.replace(`{{${name}}}`, fileBuffer.toString());
+          // console.log(newContent);
           creatIndexHtml(newContent);
         })
         .catch((error) => {
