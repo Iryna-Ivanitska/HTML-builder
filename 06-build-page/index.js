@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { stat, copyFile } = require("fs");
 const {
-  promises: { readFile },
+  promises: { readFile, readdir },
 } = require("fs");
 
 function errorThrow(err) {
@@ -76,7 +76,7 @@ fs.mkdir(newDir, { recursive: true }, errorThrow);
 
 async function copyDir(oldDir, newDir) {
   await clearFolder(newDir);
-  fs.readdir(oldDir, function (err, files) {
+  readdir(oldDir, function (err, files) {
     if (err) throw err;
 
     for (const file of files) {
