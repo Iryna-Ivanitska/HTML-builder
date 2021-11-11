@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { stat, copyFile } = require("fs");
 const {
-  promises: { readFile, readdir },
+  promises: { readFile},
 } = require("fs");
 
 function errorThrow(err) {
@@ -58,17 +58,19 @@ const oldDir = path.join(__dirname, "assets");
 
 function clearFolder(p) {
   fs.readdir(p, (err, files) => {
-    // if (err) throw err;
-    for (const file of files) {
-      stat(path.join(p, file), (err, stats) => {
-        // if (err) throw err;
-        if (stats.isDirectory()) {
-          clearFolder(path.join(p, file));
-        } else {
-          fs.unlink(path.join(p, file), () => {});
-        }
-      });
+    if (files) {
+        for (const file of files) {
+            stat(path.join(p, file), (err, stats) => {
+              // if (err) throw err;
+              if (stats.isDirectory()) {
+                clearFolder(path.join(p, file));
+              } else {
+                fs.unlink(path.join(p, file), () => {});
+              }
+            });
+          }
     }
+    
   });
 }
 
@@ -76,7 +78,7 @@ fs.mkdir(newDir, { recursive: true }, errorThrow);
 
 async function copyDir(oldDir, newDir) {
   await clearFolder(newDir);
-  readdir(oldDir, function (err, files) {
+  fs.readdir(oldDir, function (err, files) {
     if (err) throw err;
 
     for (const file of files) {
